@@ -2201,7 +2201,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       success: null,
       error: null,
-      isUploadButtonActive: false
+      isUploadButtonActive: false,
+      submitButtonDisable: false
     };
   },
   methods: {
@@ -2211,6 +2212,7 @@ __webpack_require__.r(__webpack_exports__);
     submitFile: function submitFile() {
       var self = this;
       var formData = new FormData();
+      this.submitButtonDisable = true;
       formData.append('csv', this.$refs.file.files[0]);
       var url = '/api/file/create';
 
@@ -2241,7 +2243,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     uploadButtonActive: function uploadButtonActive() {
-      this.isUploadButtonActive = true;
+      this.submitButtonDisable = false;
     }
   }
 });
@@ -38235,17 +38237,19 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _vm.isUploadButtonActive
-              ? _c("input", {
-                  staticClass: "btn btn-primary",
-                  attrs: { type: "button", value: "Upload" },
-                  on: {
-                    click: function($event) {
-                      return _vm.submitFile()
-                    }
-                  }
-                })
-              : _vm._e()
+            _c("input", {
+              staticClass: "btn btn-primary",
+              attrs: {
+                type: "button",
+                value: "Upload",
+                disabled: _vm.submitButtonDisable
+              },
+              on: {
+                click: function($event) {
+                  return _vm.submitFile()
+                }
+              }
+            })
           ])
         ])
       ])

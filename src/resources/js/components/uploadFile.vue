@@ -8,7 +8,7 @@
                 <form>
                     <div class="form-group">
                         <input type="file" class="csvFileUpload" ref="file" @change="uploadButtonActive()">
-                        <input type="button" class="btn btn-primary" value="Upload" v-on:click="submitFile()" v-if="isUploadButtonActive">
+                        <input type="button" class="btn btn-primary" value="Upload" v-on:click="submitFile()" :disabled="submitButtonDisable">
                     </div>
                 </form>
             </div>
@@ -24,7 +24,8 @@ export default {
         return {
             success : null,
             error : null,
-            isUploadButtonActive : false
+            isUploadButtonActive : false,
+            submitButtonDisable: false
         }
     },
     methods: {
@@ -34,6 +35,8 @@ export default {
         submitFile (){
             let self = this;
             let formData = new FormData();
+
+            this.submitButtonDisable = true;
 
             formData.append('csv', this.$refs.file.files[0]);
 
@@ -61,7 +64,7 @@ export default {
 
         },
         uploadButtonActive(){
-            this.isUploadButtonActive = true
+            this.submitButtonDisable = false
         }
     }
 }
