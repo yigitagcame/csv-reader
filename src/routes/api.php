@@ -14,6 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/file/{id}', 'FileController@show');
+
+Route::post('/file/create', 'FileController@store');
+
+Route::post('/file/{id}/edit', 'FileController@update');
+
+// Csv Routes
+
+Route::get('/csv', 'CsvController@index');
+
+Route::get('/csv/{id}', 'CsvController@show');
+
+// Compute Routess
+
+Route::post('/compute/create', 'ComputeController@store');
